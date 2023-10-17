@@ -180,18 +180,18 @@ export type Album = {
 };
 
 export type ThumbnailSize = {
-  height: number,
-  width: number
+  height: number;
+  width: number;
 };
 
 export type PhotoThumbnailOptions = {
-  allowNetworkAccess: boolean,  //iOS only
-  targetSize: ThumbnailSize,
-  quality: number
+  allowNetworkAccess: boolean; //iOS only
+  targetSize: ThumbnailSize;
+  quality: number;
 };
 
 export type PhotoThumbnail = {
-  thumbnailBase64: string,
+  thumbnailBase64: string;
 };
 
 /**
@@ -210,6 +210,19 @@ export class CameraRoll {
    */
   static deletePhotos(photoUris: Array<string>): Promise<void> {
     return RNCCameraRoll.deletePhotos(photoUris);
+  }
+
+  /**
+   * Returns total iOS image count
+   */
+  static getPhotosCountiOS(): Promise<number> {
+    return RNCCameraRoll.getPhotosCountiOS('');
+  }
+  /**
+   * Returns favorites and their count iOS
+   */
+  static getFavoritesiOS(): Promise<Album> {
+    return RNCCameraRoll.getFavoritesiOS('');
   }
 
   /**
@@ -288,14 +301,17 @@ export class CameraRoll {
     return RNCCameraRoll.getPhotoByInternalID(internalID, conversionOption);
   }
 
-    /**
+  /**
    * Returns a Promise with thumbnail photo.
    *
    * @param internalID - PH photo internal ID.
    * @param options - thumbnail photo options.
    * @returns Promise<PhotoThumbnail>
    */
-    static getPhotoThumbnail(internalID: string, options: PhotoThumbnailOptions): Promise<PhotoThumbnail> {
-      return RNCCameraRoll.getPhotoThumbnail(internalID, options);
-    }
+  static getPhotoThumbnail(
+    internalID: string,
+    options: PhotoThumbnailOptions,
+  ): Promise<PhotoThumbnail> {
+    return RNCCameraRoll.getPhotoThumbnail(internalID, options);
+  }
 }
